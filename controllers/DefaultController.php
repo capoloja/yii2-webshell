@@ -47,8 +47,6 @@ class DefaultController extends Controller
         Yii::$app->response->format = Response::FORMAT_JSON;
 
         $options = Json::decode(Yii::$app->request->getRawBody());
-		//print var_export($options, true);
-		Yii::trace('pf: '.var_export($options, true));
         switch ($options['method']) {
             case 'yii':
                 list ($status, $output) = $this->runConsole(implode(' ', $options['params']));
@@ -72,18 +70,15 @@ class DefaultController extends Controller
     {
         $cmd = Yii::getAlias($this->module->yiiScript) . ' ' . $command . ' 2>&1';
 
-		Yii::trace('pf runConsole: '.$cmd);
         $handler = popen($cmd, 'r');
         $output = '';
         while (!feof($handler)) {
-			Yii::trace("pf runConsole getting output: [".var_export($output, true)."]");
             $output .= fgets($handler);
         }
 
         $output = trim($output);
         $status = pclose($handler);
 
-		Yii::trace("pf runConsole status: $status, output [".var_export($output, true)."]");
         return [$status, $output];
     }
 	
@@ -98,19 +93,15 @@ class DefaultController extends Controller
     {
         $cmd = 'svn ' . $command . ' 2>&1';
 
-		Yii::trace('pf runConsole: '.$cmd);
         $handler = popen($cmd, 'r');
         $output = '';
         while (!feof($handler)) {
-			Yii::trace("pf runConsole getting output: [".var_export($output, true)."]");
             $output .= fgets($handler);
         }
 
         $output = trim($output);
-        //$output = $cmd;
         $status = pclose($handler);
 
-		Yii::trace("pf runConsole status: $status, output [".var_export($output, true)."]");
         return [$status, $output];
     }
 }

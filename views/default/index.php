@@ -22,6 +22,12 @@ jQuery(function($) {
                         term.echo(json.result);
                         scrollDown();
                     });
+			}
+            else if (command.indexOf('svn') === 0 || command.indexOf('svn') === 3) {
+                    $.jrpc('{$endpoint}', 'svn', [command.replace(/^svn ?/, '')], function(json) {
+                        term.echo(json.result);
+                        scrollDown();
+                    });
             } else if (command === 'help') {
                 term.echo('Available commands are:');
                 term.echo('');
