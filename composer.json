@@ -1,0 +1,21 @@
+{
+    "name": "capoloja/yii2-webshellj",
+    "description": "Extended webshell",
+    "type": "yii2-extension",
+    "keywords": ["yii2","extension"],
+    "license": "BSD-3-Clause",
+    "authors": [
+        {
+            "name": "capoloja",
+            "email": "pfinocchiaro@fastwebnet.it"
+        }
+    ],
+    "require": {
+        "yiisoft/yii2": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "capoloja\\\\webshell\\\\": ""
+        }
+    }
+}
