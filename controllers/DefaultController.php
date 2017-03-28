@@ -56,6 +56,11 @@ class DefaultController extends Controller
                 list ($status, $output) = $this->runSvn(implode(' ', $options['params']));
                 return ['result' => $output];
 				break;
+            case 'pwd':
+            case 'cd':
+                list ($status, $output) = $this->runOSCmd($options['method'].' '.implode(' ', $options['params']));
+                return ['result' => $output];
+				break;
         }
     }
 
@@ -91,7 +96,25 @@ class DefaultController extends Controller
      */
     private function runSvn($command)
     {
+		chdir(Yii::getAlias('@base'));
         $cmd = 'svn ' . $command . ' 2>&1';
+
+        $handler = popen($cmd, 'r');
+        $output = '';
+        while (!feof($handler)) {
+            $output .= fgets($handler);
+        }
+
+        $output = trim($output);
+        $status = pclose($handler);
+
+        return [$status, $output];
+    }
+	
+    private function runOSCmd($command)
+    {
+		//chdir(dirname(__DIR__));
+        $cmd = $command . ' 2>&1';
 
         $handler = popen($cmd, 'r');
         $output = '';

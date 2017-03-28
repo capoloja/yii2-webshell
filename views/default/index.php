@@ -18,16 +18,28 @@ jQuery(function($) {
     webshell.terminal(
         function(command, term) {
             if (command.indexOf('yii') === 0 || command.indexOf('yii') === 3) {
-                    $.jrpc('{$endpoint}', 'yii', [command.replace(/^yii ?/, '')], function(json) {
-                        term.echo(json.result);
-                        scrollDown();
-                    });
+				$.jrpc('{$endpoint}', 'yii', [command.replace(/^yii ?/, '')], function(json) {
+					term.echo(json.result);
+					scrollDown();
+				});
 			}
-            else if (command.indexOf('svn') === 0 || command.indexOf('svn') === 3) {
-                    $.jrpc('{$endpoint}', 'svn', [command.replace(/^svn ?/, '')], function(json) {
-                        term.echo(json.result);
-                        scrollDown();
-                    });
+            else if (command.indexOf('svn') === 0) {
+				$.jrpc('{$endpoint}', 'svn', [command.replace(/^svn ?/, '')], function(json) {
+					term.echo(json.result);
+					scrollDown();
+				});
+			}
+            else if (command.indexOf('pwd') === 0) {
+				$.jrpc('{$endpoint}', 'pwd', [], function(json) {
+					term.echo(json.result);
+					scrollDown();
+				});
+			}
+            else if (command.indexOf('cd') === 0) {
+				$.jrpc('{$endpoint}', 'cd', [], function(json) {
+					term.echo(json.result);
+					scrollDown();
+				});
             } else if (command === 'help') {
                 term.echo('Available commands are:');
                 term.echo('');
