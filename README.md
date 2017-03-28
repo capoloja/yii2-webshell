@@ -16,7 +16,7 @@ php composer.phar require --prefer-dist capoloja/yii2-webshell "*"
 or add
 
 ```
-"capoloja/yii2-webshellj": "*"
+"capoloja/yii2-webshell": "*"
 ```
 
 to the require section of your `composer.json` file.
