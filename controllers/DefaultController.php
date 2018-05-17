@@ -50,16 +50,28 @@ class DefaultController extends Controller
         switch ($options['method']) {
             case 'yii':
                 list ($status, $output) = $this->runConsole(implode(' ', $options['params']));
-                return ['result' => $output];
+                return [
+                    'id' => (isset($options['id'])?$options['id']:1),
+                    'error' => false,
+                    'result' => $output,
+                ];
 				break;
             case 'svn':
                 list ($status, $output) = $this->runSvn(implode(' ', $options['params']));
-                return ['result' => $output];
+                return [
+                    'id' => (isset($options['id'])?$options['id']:1),
+                    'error' => false,
+                    'result' => $output,
+                ];
 				break;
             case 'pwd':
             case 'cd':
                 list ($status, $output) = $this->runOSCmd($options['method'].' '.implode(' ', $options['params']));
-                return ['result' => $output];
+                return [
+                    'id' => (isset($options['id'])?$options['id']:1),
+                    'error' => false,
+                    'result' => $output,
+                ];
 				break;
         }
     }

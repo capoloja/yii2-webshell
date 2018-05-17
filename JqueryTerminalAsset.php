@@ -14,7 +14,7 @@ class JqueryTerminalAsset extends AssetBundle
     public $sourcePath = '@bower/jquery.terminal';
 
     public $js = [
-        'js/jquery.terminal-min.js',
+        'js/jquery.terminal.js',
     ];
 
     public $css = [
