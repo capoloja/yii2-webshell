@@ -57,7 +57,12 @@ class DefaultController extends Controller
                 ];
 				break;
             case 'svn':
-                list ($status, $output) = $this->runSvn(implode(' ', $options['params']));
+                $extra = '';
+                if (isset($this->module->runOptions[$options['method']])) {
+                    $extra = ' ' . $this->module->runOptions[$options['method']];
+                }
+                $svnCmd = implode(' ', $options['params']) . $extra;
+                list ($status, $output) = $this->runSvn($svnCmd);
                 return [
                     'id' => (isset($options['id'])?$options['id']:1),
                     'error' => false,
